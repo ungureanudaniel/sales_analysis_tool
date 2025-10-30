@@ -39,23 +39,21 @@ Open Docker Desktop and ensure it's running
 2. Clone and Run the Application
 bash
 # Clone the repository
-git clone https://github.com/ungureanudaniel/carrefour-sales-analysis.git
-cd carrefour-sales-analysis
+git clone https://github.com/ungureanudaniel/sales-analysis-tool.git
+cd sales-analysis-tool
 
 # Start the application using Docker Compose
 docker-compose up
 3. Using the Application
-The application will start and prompt you for an Excel file path
+The application will start and prompt asking you for an Excel file path
 
-Place your Carrefour sales Excel file in the data/ directory
+When prompted, enter the path: path/to/your-sales-file.xlsx, by copying it's path from your file explorer, with a right click on the file and selecting "Copy as path"
 
-When prompted, enter the path: data/your-sales-file.xlsx
-
-View the generated charts and analysis in the console output
+View the generated charts and analysis in the console output. After you close the first chart, the next one will appear automatically.
 
 Project Structure
 text
-carrefour-sales-analysis/
+sales-analysis-tool/
 ├── data/                   # Place your Excel files here
 ├── src/
 │   ├── data_loader.py     # Excel file loading module
@@ -66,27 +64,7 @@ carrefour-sales-analysis/
 ├── docker-compose.yml
 ├── requirements.txt
 └── README.md
-Manual Installation (Without Docker)
-1. Clone the Repository
-bash
-git clone https://github.com/your-username/carrefour-sales-analysis.git
-cd carrefour-sales-analysis
-2. Create Virtual Environment
-bash
-# Create virtual environment
-python -m venv myvenv
 
-# Activate virtual environment
-# For Windows PowerShell:
-myvenv\Scripts\Activate
-# For Windows Command Prompt:
-myvenv\Scripts\activate.bat
-3. Install Dependencies
-bash
-pip install -r requirements.txt
-4. Run the Application
-bash
-python src/main.py
 Excel File Format
 Your Excel file should contain the following columns:
 
@@ -125,7 +103,7 @@ version: '3.8'
 services:
   sales-analysis:
     build: .
-    container_name: carrefour-sales-analysis
+    container_name: sales-analysis-tool
     volumes:
       - ./data:/app/data:rw
     stdin_open: true

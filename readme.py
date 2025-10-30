@@ -1,70 +1,53 @@
 # Create a quick script to generate the README
-readme_content = """Sales Analysis Tool \n
-A Python-based sales analysis tool for analyzing product sales data. This tool automatically processes Excel files, generates sales effectiveness reports, and creates comprehensive visualizations.
+readme_content = """# Sales Analysis Tool
 
-Features
-📊 Automated Sales Analysis: Process Excel files with product sales data
+A Python-based sales analysis tool for analyzing product sales data with a user-friendly GUI interface. This tool automatically processes Excel files, generates sales effectiveness reports, and creates comprehensive visualizations.
 
-📈 Interactive Visualizations: Generate bar charts, scatter plots, and trend analysis
+## Features
 
-🎯 Product Performance Metrics: Identify top-performing products by sales and units
+- 🖼️ **Easy GUI Interface** - File picker dialog for easy file selection
+- 📊 **Automated Sales Analysis** - Process Excel files with product sales data
+- 📈 **Interactive Visualizations** - Generate bar charts, scatter plots, and trend analysis
+- 🎯 **Product Performance Metrics** - Identify top-performing products by sales and units
+- 📋 **Multiple Chart Types** - Horizontal bars, scatter plots, donut charts, and trend lines
 
-📋 Multiple Chart Types: Horizontal bars, scatter plots, donut charts, and trend lines
+## Quick Start (Recommended - Local Python)
 
-🐳 Docker Support: Easy deployment using Docker Compose
+### 1. Prerequisites
+- Python 3.8 or higher
+- pip (Python package manager)
 
-Prerequisites
-For Docker Deployment (Recommended)
-Docker Desktop for Windows
-
-Git
-
-For Local Development
-Python 3.12+
-
-pip (Python package manager)
-
-Quick Start with Docker
-1. Install Docker on Windows
-Download Docker Desktop from Docker's official website
-
-Run the installer and follow the setup wizard
-
-Restart your computer when prompted
-
-Open Docker Desktop and ensure it's running
-
-2. Clone and Run the Application
-bash
+### 2. Installation
+```bash
 # Clone the repository
 git clone https://github.com/ungureanudaniel/sales-analysis-tool.git
-
 cd sales-analysis-tool
 
-# Start the application using Docker Compose
-docker-compose up
+# Install required packages
+pip install -r requirements.txt
+3. Run the Application
+bash
+python main.py
+4. Using the Application
+File Selection: A file picker dialog will automatically open
 
-3. Using the Application
-The application will start and prompt asking you for an Excel file path
+Choose Excel File: Select your sales data Excel file
 
-When prompted, enter the path: path/to/your-sales-file.xlsx, by copying it's path from your file explorer, with a right click on the file and selecting "Copy as path"
+View Results: The analysis will run automatically and display charts
 
-View the generated charts and analysis in the console output. After you close the first chart, the next one will appear automatically.
+Navigate Charts: Close each chart window to see the next one
 
 Project Structure
 text
 sales-analysis-tool/
-├── data/                   # Place your Excel files here
+├── data/                   # Optional: Place your Excel files here
 ├── src/
-│   ├── data_loader.py     # Excel file loading module
+│   ├── data_loader.py     # Excel file loading with GUI
 │   ├── analysis.py        # Sales analysis logic
 │   ├── visualization.py   # Chart generation module
 │   └── main.py           # Main application entry point
-├── Dockerfile
-├── docker-compose.yml
 ├── requirements.txt
 └── README.md
-
 Excel File Format
 Your Excel file should contain the following columns:
 
@@ -75,112 +58,34 @@ SPC1, SPC2: Price columns
 Sales-1 to Sales-8: Sales quantity columns for different periods
 
 Example structure:
-
 text
 Article    SPC1   SPC2   Sales-1   Sales-2   ...   Sales-8
 107251098  15.99  16.99  100       120       ...   115
 107295766  12.50  13.00  80        90        ...   87
-Docker Configuration Files
-Dockerfile
-dockerfile
-FROM python:3.9-slim
-
-WORKDIR /app
-
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-COPY src/ ./src/
-COPY data/ ./data/
-
-VOLUME /app/data
-
-CMD ["python", "src/main.py"]
-docker-compose.yml
-yaml
-version: '3.8'
-
-services:
-  sales-analysis:
-    build: .
-    container_name: sales-analysis-tool
-    volumes:
-      - ./data:/app/data:rw
-    stdin_open: true
-    tty: true
 Output
 The application generates:
 
 Console Output: Summary statistics and top products
 
-Visualizations:
+Visualizations (in this order):
 
 Top products by sales (horizontal bar chart)
 
-Sales vs units sold scatter plot with article codes
-
 Sales distribution (donut chart)
 
-Price analysis
+Sales vs units sold scatter plot with article codes
 
 Sales trends across periods
 
-Troubleshooting
-Common Docker Issues
-Docker not starting:
+Manual File Selection (Alternative)
+If the GUI file picker doesn't work, you can manually enter the file path:
 
-Ensure virtualization is enabled in BIOS
+Run: python main.py
 
-Run Docker Desktop as administrator
+When prompted, enter the full path to your Excel file
 
-Permission errors on Windows:
-
-Share drives in Docker Desktop settings
-
-Run Docker with elevated privileges
-
-Excel file not found:
-
-Ensure file is in the data/ directory
-
-Check file path case sensitivity
-
-Common Python Issues
-Missing dependencies:
-
-bash
-pip install --upgrade pip
-pip install -r requirements.txt
-Excel file format issues:
-
-Ensure columns match expected names
-
-Check for empty rows or columns
-
-Development
-Adding New Features
-Modify the analysis modules in src/
-
-Update requirements if adding new dependencies
-
-Test with sample data
-
-Rebuild Docker image if needed: docker-compose build --no-cache
-
-Sample Data
-Create a test Excel file in the data/ directory with sample sales data to verify the installation.
-
-Support
-For issues and questions:
-
-Check the troubleshooting section above
-
-Ensure your Excel file matches the expected format
-
-Verify all prerequisites are installed correctly
-
-License
-This project is licensed under the MIT License - see the LICENSE file for details."""
+You can get the path by right-clicking the file in File Explorer and selecting "Copy as path"
+"""
 
 with open('README.md', 'w', encoding='utf-8') as f:
     f.write(readme_content)

@@ -1,12 +1,15 @@
 services:
   sales_statistics:
     build: .
-    container_name: sales_statistics
+    container_name: sales_statistics-tool
     restart: always
     volumes:
-      - ./data:/app/data
-      - ./logs:/app/logs
+      - ./data:/app/data:rw
+      - ./logs:/app/logs:rw
+      - ./output:/app/output:rw
     environment:
+      - DOCKER_CONTAINER=true
       - TZ=UTC
     stdin_open: true
     tty: true
+    working_dir: /app

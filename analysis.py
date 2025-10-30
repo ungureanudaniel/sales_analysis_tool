@@ -25,8 +25,8 @@ def summarize_sales(df):
     missing_columns.extend(missing_qty_cols)
 
     if missing_columns:
-        print(f"❌ Missing expected columns: {missing_columns}")
-        print("💡 Please check your Excel file column names and update the analysis.py file accordingly.")
+        print(f"Missing expected columns: {missing_columns}")
+        print("Please check your Excel file column names and update the analysis.py file accordingly.")
         return pd.DataFrame()  # Return empty DataFrame if critical columns are missing
         
     # Identify columns present in DataFrame
@@ -60,7 +60,7 @@ def summarize_sales(df):
     print(f"   Remaining rows: {len(df_clean)}")
 
     # Check data types
-    print(f"\n📝 Data types:")
+    print(f"\nData types:")
     for col in [product_col] + price_cols + qty_cols:
         print(f"  {col}: {df_clean[col].dtype}")
 
@@ -70,7 +70,7 @@ def summarize_sales(df):
 
     # Compute metrics
     try:
-        print(f"\n🧮 Computing metrics:")
+        print(f"\nComputing metrics:")
         
         # Calculate total units sold (sum across all quantity columns)
         df_clean['Total_Units_Sold'] = df_clean[qty_cols].sum(axis=1, skipna=True)
@@ -126,7 +126,7 @@ def summarize_sales(df):
 # Test function for debugging
 def test_with_sample_data():
     """Create sample data to test the analysis function."""
-    print("🧪 Running test with sample data...")
+    print("Running test with sample data...")
     
     sample_data = {
         'Article': ['Product A', 'Product B', 'Product C', 'Product A', 'Product B'],

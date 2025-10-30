@@ -3,7 +3,7 @@ from analysis import summarize_sales
 from visualization import plot_top_products, plot_sales_comparison
 
 def main():
-    print("Carrefour Sales Analysis Tool")
+    print("Sales Analysis Tool")
     print("=" * 40)
     
     # Load data
@@ -15,9 +15,9 @@ def main():
         
         # Visualize results
         plot_top_products(summary, top_n=10)
-        plot_sales_comparison(df)
+        plot_sales_comparison(summary, top_n=10)
         
-        print("\nAnalysis complete! Check the charts for insights.")
+        print("\n Analysis complete! Check the charts for insights.")
 
 if __name__ == "__main__":
     main()

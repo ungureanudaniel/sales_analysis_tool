@@ -65,50 +65,60 @@ def plot_top_products(summary, top_n=10):
     plt.show()
 
 def plot_sales_comparison(summary, top_n=10):
-    """Create a comparison plot showing units vs sales with direct article labels."""
-    if all(col in summary.columns for col in ['Total_Sales', 'Total_Units_Sold', 'Article']):
-        top_products = summary.head(top_n).copy()
-        
-        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 6))
-        
-        # Plot 1: Sales vs Units scatter plot with direct labels
-        colors = plt.cm.Set3(np.linspace(0, 1, len(top_products)))
-        
-        for i, (idx, row) in enumerate(top_products.iterrows()):
-            ax1.scatter(row['Total_Units_Sold'], row['Total_Sales'], 
-                       s=120, alpha=0.8, color=colors[i], 
-                       edgecolors='black', linewidth=0.8)
-            
-            # Place article code next to the point
-            ax1.text(row['Total_Units_Sold'] + (row['Total_Units_Sold'] * 0.02), 
-                    row['Total_Sales'], 
-                    f"  {row['Article']}", 
-                    fontsize=9, fontweight='bold', va='center',
-                    bbox=dict(boxstyle='round,pad=0.2', facecolor='white', 
-                             alpha=0.8, edgecolor=colors[i], linewidth=1))
-        
-        ax1.set_xlabel('Total Units Sold', fontsize=12, fontweight='bold')
-        ax1.set_ylabel('Total Sales (€)', fontsize=12, fontweight='bold')
-        ax1.set_title('Units Sold vs Total Sales\n(Article Codes Labeled)', fontsize=14, fontweight='bold')
-        ax1.grid(True, alpha=0.3)
-        
-        # Plot 2: Price distribution with article codes
-        if 'Average_Price' in summary.columns:
-            bars = ax2.barh(top_products['Article'], top_products['Average_Price'], 
-                           color=colors, edgecolor='black', linewidth=0.5)
-            
-            # Add price values on bars
-            for bar, price, article in zip(bars, top_products['Average_Price'], top_products['Article']):
-                width = bar.get_width()
-                ax2.text(width + (width * 0.01), bar.get_y() + bar.get_height()/2, 
-                        f'€{price:.2f}', ha='left', va='center', 
-                        fontsize=8, fontweight='bold')
-            
-            ax2.set_xlabel('Average Price (€)', fontsize=12, fontweight='bold')
-            ax2.set_ylabel('Product Article Code', fontsize=12, fontweight='bold')
-            ax2.set_title('Average Price per Product', fontsize=14, fontweight='bold')
-            ax2.grid(axis='x', alpha=0.3)
-            ax2.invert_yaxis()
-        
-        plt.tight_layout()
-        plt.show()
+    """Plot sales vs units with article codes."""
+    if not all(col in summary.columns for col in ['Total_Sales', 'Total_Units_Sold', 'Article']):
+        print("Required columns for scatter plot not found.")
+        print(f"Available columns: {list(summary.columns)}")
+        return
+    
+    top_products = summary.head(top_n).copy()
+    
+    plt.figure(figsize=(12, 8))
+    
+    # Create scatter plot with article codes - SIMPLE VERSION
+    plt.scatter(top_products['Total_Units_Sold'], top_products['Total_Sales'], 
+               s=100, alpha=0.7, color='blue', edgecolors='black')
+    
+    # Add article codes as labels
+    for i, row in top_products.iterrows():
+        plt.text(row['Total_Units_Sold'] + (row['Total_Units_Sold'] * 0.02), 
+                row['Total_Sales'], 
+                f"{row['Article']}", 
+                fontsize=9, fontweight='bold', va='center',
+                bbox=dict(boxstyle='round,pad=0.3', facecolor='yellow', 
+                         alpha=0.7, edgecolor='black'))
+    
+    plt.xlabel('Total Units Sold', fontsize=12, fontweight='bold')
+    plt.ylabel('Total Sales (€)', fontsize=12, fontweight='bold')
+    plt.title('Total Sales vs Total Units Sold', fontsize=14, fontweight='bold')
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.show()
+
+# Or even simpler version:
+def plot_sales_comparison_simple(summary, top_n=10):
+    """Simple scatter plot without fancy colors."""
+    if not all(col in summary.columns for col in ['Total_Sales', 'Total_Units_Sold', 'Article']):
+        print("Required columns for scatter plot not found.")
+        return
+    
+    top_products = summary.head(top_n)
+    
+    plt.figure(figsize=(12, 8))
+    
+    # Basic scatter plot
+    plt.scatter(top_products['Total_Units_Sold'], top_products['Total_Sales'], 
+               alpha=0.6, color='red')
+    
+    # Add labels
+    for i, row in top_products.iterrows():
+        plt.annotate(row['Article'], 
+                    (row['Total_Units_Sold'], row['Total_Sales']),
+                    xytext=(5, 5), textcoords='offset points',
+                    fontsize=8)
+    
+    plt.xlabel('Total Units Sold')
+    plt.ylabel('Total Sales')
+    plt.title('Sales vs Units Sold')
+    plt.grid(True)
+    plt.show()

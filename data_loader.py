@@ -17,6 +17,8 @@ def select_file_gui():
     if not file_path:
         messagebox.showwarning("No file selected", "Please select an Excel file to proceed.")
         return None
+
+    root.destroy()
     return file_path
 
 def load_sales_data():

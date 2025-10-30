@@ -1,6 +1,6 @@
 from data_loader import load_sales_data
 from analysis import summarize_sales
-from visualization import plot_top_products, plot_sales_trends
+from visualization import plot_top_products, plot_sales_comparison
 
 def main():
     print("🚀 Carrefour Sales Analysis Tool")
@@ -15,7 +15,7 @@ def main():
         
         # Visualize results
         plot_top_products(summary, top_n=10)
-        plot_sales_trends(df)
+        plot_sales_comparison(df)
         
         print("\n✅ Analysis complete! Check the charts for insights.")
 

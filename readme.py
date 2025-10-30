@@ -24,9 +24,12 @@ git clone https://github.com/ungureanudaniel/sales-analysis-tool.git
 cd sales-analysis-tool
 
 # Install required packages
+pip install --upgrade pip
+
 pip install -r requirements.txt
+```
 3. Run the Application
-bash
+```bash
 python main.py
 4. Using the Application
 File Selection: A file picker dialog will automatically open

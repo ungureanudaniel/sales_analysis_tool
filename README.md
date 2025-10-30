@@ -1,4 +1,5 @@
-Sales Analysis Tool /n
+Sales Analysis Tool 
+
 A Python-based sales analysis tool for analyzing product sales data. This tool automatically processes Excel files, generates sales effectiveness reports, and creates comprehensive visualizations.
 
 Features

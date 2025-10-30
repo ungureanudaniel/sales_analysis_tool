@@ -1,5 +1,5 @@
 # Create a quick script to generate the README
-readme_content = """Sales Analysis Tool /n
+readme_content = """Sales Analysis Tool \n
 A Python-based sales analysis tool for analyzing product sales data. This tool automatically processes Excel files, generates sales effectiveness reports, and creates comprehensive visualizations.
 
 Features

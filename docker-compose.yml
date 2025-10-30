@@ -1,0 +1,12 @@
+services:
+  sales_statistics:
+    build: .
+    container_name: sales_statistics
+    restart: always
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    environment:
+      - TZ=UTC
+    stdin_open: true
+    tty: true

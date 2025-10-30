@@ -42,7 +42,7 @@ git clone https://github.com/ungureanudaniel/sales-analysis-tool.git
 cd sales-analysis-tool
 
 # Start the application using Docker Compose
-docker-compose up --build -d
+docker-compose up
 
 3. Using the Application
 The application will start and prompt asking you for an Excel file path

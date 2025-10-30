@@ -13,7 +13,7 @@ A Python-based sales analysis tool for analyzing product sales data with a user-
 ## Quick Start (Recommended - Local Python)
 
 ### 1. Prerequisites
-- Python 3.8 or higher
+- Python 3.12 or higher
 - pip (Python package manager)
 
 ### 2. Installation

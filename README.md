@@ -1,7 +1,5 @@
-#
-
-Carrefour Sales Analysis Tool
-A Python-based sales analysis tool for analyzing Carrefour product sales data. This tool automatically processes Excel files, generates sales effectiveness reports, and creates comprehensive visualizations.
+Sales Analysis Tool
+A Python-based sales analysis tool for analyzing product sales data. This tool automatically processes Excel files, generates sales effectiveness reports, and creates comprehensive visualizations.
 
 Features
 📊 Automated Sales Analysis: Process Excel files with product sales data

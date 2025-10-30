@@ -3,46 +3,65 @@ import seaborn as sns
 import numpy as np
 
 def plot_top_products(summary, top_n=10):
-    """Plot top N products by total sales."""
-    if "Total_Sales" not in summary.columns:
-        print("No Total_Sales column found.")
+    """Plot top N products by total sales with enhanced styling."""
+    if "Total_Sales" not in summary.columns or "Article" not in summary.columns:
+        print("Required columns not found.")
         return
     
-    top_products = summary.head(top_n)
+    top_products = summary.head(top_n).copy()
     
-    # Set style
-    plt.style.use('default')
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 6))
+    # Create figure with subplots
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 8))
     
     # Plot 1: Horizontal bar chart
-    bars = ax1.barh(top_products["Article"], top_products["Total_Sales"], color="skyblue")
-    ax1.set_xlabel("Total Sales", fontsize=12)
-    ax1.set_ylabel("Product", fontsize=12)
-    ax1.set_title(f"Top {top_n} Products by Sales", fontsize=14, fontweight='bold')
+    y_pos = np.arange(len(top_products))
+    colors = plt.cm.viridis(np.linspace(0, 1, len(top_products)))
+    
+    bars = ax1.barh(y_pos, top_products["Total_Sales"], color=colors, height=0.8, 
+                   edgecolor='black', linewidth=0.5)
+    
+    # Customize bar chart
+    ax1.set_xlabel("Total Sales (€)", fontsize=12, fontweight='bold')
+    ax1.set_ylabel("Product Article Code", fontsize=12, fontweight='bold')
+    ax1.set_title(f"Top {top_n} Products by Sales", fontsize=14, fontweight='bold', pad=20)
+    
+    # Set y-axis ticks and labels
+    ax1.set_yticks(y_pos)
+    ax1.set_yticklabels(top_products["Article"], fontsize=10)
     
     # Add value labels on bars
-    for bar in bars:
+    for bar, value in zip(bars, top_products["Total_Sales"]):
         width = bar.get_width()
-        ax1.text(width, bar.get_y() + bar.get_height()/2, 
-                f'{width:,.0f}', ha='left', va='center', fontsize=9)
+        ax1.text(width + (width * 0.01), bar.get_y() + bar.get_height()/2, 
+                f'€{value:,.0f}', ha='left', va='center', 
+                fontsize=10, fontweight='bold', color='darkblue')
     
-    ax1.invert_yaxis()
+    ax1.invert_yaxis()  # Highest sales at top
+    ax1.grid(axis='x', alpha=0.3, linestyle='--')
     
-    # Plot 2: Pie chart for sales distribution
-    ax2.pie(top_products["Total_Sales"], labels=top_products["Article"], 
-            autopct='%1.1f%%', startangle=90)
-    ax2.set_title(f"Sales Distribution - Top {top_n} Products", fontsize=14, fontweight='bold')
+    # Plot 2: Donut chart (better than pie chart)
+    wedges, texts, autotexts = ax2.pie(top_products["Total_Sales"], 
+                                      labels=top_products["Article"], 
+                                      autopct='%1.1f%%', 
+                                      startangle=90,
+                                      colors=colors,
+                                      wedgeprops={'edgecolor': 'black', 'linewidth': 0.5})
+    
+    # Make it a donut chart
+    centre_circle = plt.Circle((0,0), 0.70, fc='white')
+    ax2.add_artist(centre_circle)
+    
+    # Style the labels
+    for text in texts:
+        text.set_fontsize(9)
+    for autotext in autotexts:
+        autotext.set_fontsize(9)
+        autotext.set_fontweight('bold')
+        autotext.set_color('black')
+    
+    ax2.set_title(f"Sales Distribution - Top {top_n} Products", fontsize=14, fontweight='bold', pad=20)
     
     plt.tight_layout()
-    plt.show()
-    
-    # Additional plot: Units vs Sales
-    plt.figure(figsize=(10, 6))
-    plt.scatter(summary['Total_Units_Sold'], summary['Total_Sales'], alpha=0.6)
-    plt.xlabel('Total Units Sold')
-    plt.ylabel('Total Sales')
-    plt.title('Units Sold vs Total Sales')
-    plt.grid(True, alpha=0.3)
     plt.show()
 
 def plot_sales_comparison(summary, top_n=10):
